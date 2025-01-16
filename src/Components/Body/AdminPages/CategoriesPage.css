@@ -1,0 +1,31 @@
+.category-card {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .category-card:hover {
+    transform: scale(1.10);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .category-title {
+    font-size: 1.2rem;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .category-img {
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .category-card .btn {
+    width: 40%;
+    align-self: center;
+  }
+  

@@ -1,9 +1,44 @@
+import { useEffect } from "react";
 import BhojanamImage from "../Images/Bhojanam.jpg";
 
 import { Container } from "react-bootstrap";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import "./HomePage.css";
 
 const HomePage = () => {
+const history=useHistory();
+  useEffect(() => {
+    fetch(
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBAWtmrqXqGmJoN6ryiPw-uTZdAxw7fDxo",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: localStorage.getItem("token"),
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Authentication failed";
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data.users);
+        if (data.users[0].displayName === undefined) {
+          history.push("/profile");
+        } else {
+          localStorage.setItem("name",data.users[0].displayName)
+        }
+      });
+  }, [history]);
 
   return (
     <Container>

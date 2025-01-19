@@ -7,6 +7,35 @@ const MenuPage = () => {
   const [categories, setCategories] = useState([]);
   const [distinctCategories, setDistinctCategories] = useState([]);
 
+  useEffect(() => {
+    fetch(
+      "https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/categories.json",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          const itemList = Object.keys(data).map((key) => ({
+            id: key,
+            ...data[key],
+          }));
+          // Filter distinct categories
+          const distinctCategories = itemList.filter(
+            (item, index, self) =>
+              index === self.findIndex((t) => t.category === item.category)
+          );
+          setDistinctCategories(distinctCategories);
+          setCategories(itemList);
+        }
+      })
+      .catch((error) => console.error(error));
+
+  }, []);
 
   return (
     <>

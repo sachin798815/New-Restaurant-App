@@ -9,7 +9,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     fetch(
-      "",
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBAWtmrqXqGmJoN6ryiPw-uTZdAxw7fDxo",
       {
         method: "POST",
         body: JSON.stringify({
@@ -50,7 +50,7 @@ const ProfilePage = () => {
     localStorage.setItem("name",nameInput);
     try {
       const response = await fetch(
-        "",
+        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBAWtmrqXqGmJoN6ryiPw-uTZdAxw7fDxo",
         {
           method: "POST",
           body: JSON.stringify({

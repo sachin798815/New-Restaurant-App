@@ -1,57 +1,65 @@
 /* General container styling */
 .container {
-  padding: 2rem 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 3rem 2rem;
+  background-color: #fffdfa;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: auto;
 }
 
 /* Heading styles */
 .heading {
-  font-family: "Georgia", serif;
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #333333;
-  margin-bottom: 2rem;
+  font-family: "Merriweather", serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 2.5rem;
   text-align: center;
+  line-height: 1.2;
 }
 
 /* Image styles */
 .image {
   max-width: 100%;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  margin-bottom: 2.5rem;
 }
 
 /* Section headings */
 .section-heading {
-  font-family: "Arial", sans-serif;
-  font-size: 1.8rem;
+  font-family: "Lora", serif;
+  font-size: 2rem;
   font-weight: 600;
-  color: #444444;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
+  color: #34495e;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e74c3c;
+  display: inline-block;
+  padding-bottom: 0.5rem;
 }
 
 /* Paragraph styling */
 .paragraph {
-  font-family: "Roboto", sans-serif;
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
   color: #555555;
   margin-bottom: 2rem;
+  text-align: justify;
 }
 
 /* Thank you section */
 .thank-you {
   font-family: "Courier New", monospace;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 500;
-  color: #666666;
+  color: #e74c3c;
   text-align: center;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
 }
 
 .text-center {
@@ -64,4 +72,41 @@
 
 .bg-white {
   background-color: white !important;
+}
+
+/* responsiveness */
+@media (max-width: 768px) {
+  .heading {
+    font-size: 2.2rem;
+  }
+
+  .section-heading {
+    font-size: 1.8rem;
+  }
+
+  .paragraph {
+    font-size: 1.1rem;
+  }
+
+  .thank-you {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .heading {
+    font-size: 2rem;
+  }
+
+  .section-heading {
+    font-size: 1.6rem;
+  }
+
+  .paragraph {
+    font-size: 1rem;
+  }
+
+  .thank-you {
+    font-size: 1.2rem;
+  }
 }

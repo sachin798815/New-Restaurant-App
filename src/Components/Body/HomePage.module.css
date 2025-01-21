@@ -1,0 +1,67 @@
+/* General container styling */
+.container {
+  padding: 2rem 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+.heading {
+  font-family: "Georgia", serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Image styles */
+.image {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+/* Section headings */
+.section-heading {
+  font-family: "Arial", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #444444;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Paragraph styling */
+.paragraph {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 2rem;
+}
+
+/* Thank you section */
+.thank-you {
+  font-family: "Courier New", monospace;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #666666;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.shadow {
+  box-shadow: none !important;
+}
+
+.bg-white {
+  background-color: white !important;
+}

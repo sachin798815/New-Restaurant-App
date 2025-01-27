@@ -4,9 +4,7 @@ import TopNavbarComponent from "./Components/Header/TopNavbarComponent";
 import HomePage from "./Components/Body/HomePage";
 import { Container } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
-import { useSelector } from "react-redux";
 import CategoriesPage from "./Components/Body/AdminPages/CategoriesPage";
-import RecipesPage from "./Components/Body/AdminPages/RecipesPage";
 import OrdersPage from "./Components/Body/AdminPages/OrdersPage";
 import ProfilePage from "./Components/Body/UserPages/ProfilePage";
 import ForgotPasswordPage from "./Components/SignUp/ForgotPasswordPage";
@@ -14,12 +12,10 @@ import MenuPage from "./Components/Body/UserPages/MenuPage";
 import MenuDetailPage from "./Components/Body/UserPages/MenuDetailPage";
 import CheckoutPage from "./Components/Body/UserPages/CheckoutPage";
 import OrderStatusPage from "./Components/Body/UserPages/OrderStatusPage";
-import useAdminCheck from "./Components/useAdminCheck";
-import ProtectedRoute from "./Components/ProtectedRoute,js";
+import ProtectedRoute from "./Components/ProtectedRoute.js";
+import RecipesPage from "./Components/Body/AdminPages/RecipesPage.js";
 
 function App() {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const isAdmin = useAdminCheck();
 
   return (
     <Container fluid className="h-100 w-100 p-0">

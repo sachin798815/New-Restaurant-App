@@ -9,12 +9,9 @@ const CategoriesPage = () => {
   const [categories, setCategories] = useState([]);
   const isAdmin = useAdminCheck();
 
-  if (!isAdmin) {
-    return <h1>Access Denied</h1>;
-  }
   useEffect(() => {
     fetch(
-      "https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/categories.json",
+      "https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/admin/categories.json",
       {
         method: "GET",
         headers: {
@@ -40,7 +37,7 @@ const CategoriesPage = () => {
     const category = categoryRef.current.value;
     const imageUrl = urlRef.current.value;
     fetch(
-      `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/categories.json`,
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/admin/categories.json`,
       {
         method: "POST",
         headers: {
@@ -53,13 +50,13 @@ const CategoriesPage = () => {
         return [...prev, { id: imageUrl, category, imageUrl }];
       })
     );
-    categoryRef.current.value="";
-    urlRef.current.value="";
+    categoryRef.current.value = "";
+    urlRef.current.value = "";
   };
 
   const deleteHandler = (id) => {
     fetch(
-      `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/categories/${id}.json`,
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/admin/categories/${id}.json`,
       {
         method: "DELETE",
       }
@@ -68,19 +65,21 @@ const CategoriesPage = () => {
     setCategories(newCategories);
   };
 
-  const editHandler=(item)=>{
-    categoryRef.current.value=item.category;
-    urlRef.current.value=item.imageUrl;
+  const editHandler = (item) => {
+    categoryRef.current.value = item.category;
+    urlRef.current.value = item.imageUrl;
     fetch(
-        `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/categories/${item.id}.json`,
-        {
-          method: "DELETE",
-        }
-      );
-      const newCategories = categories.filter((citem) => citem.id !== item.id);
-      setCategories(newCategories);
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/admin/categories/${item.id}.json`,
+      {
+        method: "DELETE",
+      }
+    );
+    const newCategories = categories.filter((citem) => citem.id !== item.id);
+    setCategories(newCategories);
+  };
+  if (!isAdmin) {
+    return <h1>Access Denied</h1>;
   }
-
   return (
     <Container className="shadow p-3 mb-5 bg-white rounded">
       <Card className="m-5 text-center border-5 shadow p-3 mb-5 bg-white rounded">
@@ -100,7 +99,9 @@ const CategoriesPage = () => {
               className="mb-3"
               ref={urlRef}
             ></Form.Control>
-            <Button type="submit" className="mt-3">SUBMIT</Button>
+            <Button type="submit" className="mt-3">
+              SUBMIT
+            </Button>
           </Form>
         </Card.Body>
       </Card>
@@ -108,11 +109,16 @@ const CategoriesPage = () => {
       <br />
       <br />
       <Container className="m-2">
-        <Row className="text-center m-4"><h2>Browse added categories</h2></Row>
+        <Row className="text-center m-4">
+          <h2>Browse added categories</h2>
+        </Row>
         <Row className="p-2">
           {categories.map((item) => (
             <Col key={item.id} xs={12} sm={6} md={4} lg={3}>
-              <Card key={item.id} className="m-3 category-card border-2 shadow p-3 mb-5 bg-white rounded">
+              <Card
+                key={item.id}
+                className="m-3 category-card border-2 shadow p-3 mb-5 bg-white rounded"
+              >
                 <Card.Title className="m-2 category-title">
                   {item.category}
                 </Card.Title>

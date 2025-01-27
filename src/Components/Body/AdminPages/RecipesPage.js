@@ -13,13 +13,9 @@ const RecipesPage = () => {
   const urlRef = useRef();
   const isAdmin = useAdminCheck();
 
-  if (!isAdmin) {
-    return <h1>Access Denied</h1>;
-  }
-
   useEffect(() => {
     fetch(
-      "https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/categories.json",
+      "https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/admin/categories.json",
       {
         method: "GET",
         headers: {
@@ -46,7 +42,7 @@ const RecipesPage = () => {
       .catch((error) => console.error(error));
 
     fetch(
-      "https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/recipes.json",
+      "https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/admin/recipes.json",
       {
         method: "GET",
         headers: {
@@ -76,7 +72,7 @@ const RecipesPage = () => {
     const price = priceRef.current.value;
     const imageUrl = urlRef.current.value;
     fetch(
-      `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/recipes.json`,
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/admin/recipes.json`,
       {
         method: "POST",
         headers: {
@@ -93,24 +89,23 @@ const RecipesPage = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-
         setRecipes((prev) => {
           return [
             ...prev,
             { id: data.name, recipe, category, ingredients, price, imageUrl },
           ];
-        })
+        });
       });
-      recipeRef.current.value="";
-      categoryRef.current.value="";
-      ingredientsRef.current.value="";
-      priceRef.current.value="";
-      urlRef.current.value="";
+    recipeRef.current.value = "";
+    categoryRef.current.value = "";
+    ingredientsRef.current.value = "";
+    priceRef.current.value = "";
+    urlRef.current.value = "";
   };
 
   const deleteHandler = (id) => {
     fetch(
-      `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/recipes/${id}.json`,
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/admin/recipes/${id}.json`,
       {
         method: "DELETE",
       }
@@ -126,7 +121,7 @@ const RecipesPage = () => {
     priceRef.current.value = item.price;
     urlRef.current.value = item.imageUrl;
     fetch(
-      `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/recipes/${item.id}.json`,
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/admin/recipes/${item.id}.json`,
       {
         method: "DELETE",
       }
@@ -134,6 +129,10 @@ const RecipesPage = () => {
     const newRecipes = recipes.filter((citem) => citem.id !== item.id);
     setRecipes(newRecipes);
   };
+
+  if (!isAdmin) {
+    return <h1>Access Denied</h1>;
+  }
 
   return (
     <Container>
@@ -184,38 +183,47 @@ const RecipesPage = () => {
       <br />
       <br />
       <Container className="m-2">
-      <Row className="text-center m-4"><h2>Browse added recipes</h2></Row>
+        <Row className="text-center m-4">
+          <h2>Browse added recipes</h2>
+        </Row>
         <Row className="p-2">
           {recipes.map((item) => (
             <Col key={item.id} xs={3}>
-            <Card className="m-3 recipe-card border-2 shadow mb-5 bg-white rounded">
-              <Card.Title className="m-2 recipe-title">{item.recipe}</Card.Title>
-              <Card.Body className="text-center">
-                <Card.Text className="text-center">{item.category}</Card.Text>
-                <Card.Img src={item.imageUrl} className="mb-2 recipe-img"></Card.Img>
-                <Card.Text className="ingredients-list" >Ingredients: {item.ingredients}</Card.Text>
-                <Card.Text>Price: {item.price} Rs</Card.Text>
-                <Button
-                  className="m-2"
-                  variant="primary"
-                  onClick={() => {
-                    editHandler(item);
-                  }}
-                >
-                  EDIT
-                </Button>
-                <Button
-                  className="m-2"
-                  variant="danger"
-                  onClick={() => {
-                    deleteHandler(item.id);
-                  }}
-                >
-                  DELETE
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
+              <Card className="m-3 recipe-card border-2 shadow mb-5 bg-white rounded">
+                <Card.Title className="m-2 recipe-title">
+                  {item.recipe}
+                </Card.Title>
+                <Card.Body className="text-center">
+                  <Card.Text className="text-center">{item.category}</Card.Text>
+                  <Card.Img
+                    src={item.imageUrl}
+                    className="mb-2 recipe-img"
+                  ></Card.Img>
+                  <Card.Text className="ingredients-list">
+                    Ingredients: {item.ingredients}
+                  </Card.Text>
+                  <Card.Text>Price: {item.price} Rs</Card.Text>
+                  <Button
+                    className="m-2"
+                    variant="primary"
+                    onClick={() => {
+                      editHandler(item);
+                    }}
+                  >
+                    EDIT
+                  </Button>
+                  <Button
+                    className="m-2"
+                    variant="danger"
+                    onClick={() => {
+                      deleteHandler(item.id);
+                    }}
+                  >
+                    DELETE
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
         </Row>
       </Container>

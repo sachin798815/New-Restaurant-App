@@ -1,15 +1,16 @@
-import { useEffect, useRef } from "react";
-import { Button, Col, Form, Row, Alert } from "react-bootstrap";
+import { useEffect, useRef, useState } from "react";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const ProfilePage = () => {
   const nameRef = useRef();
   const imgUrlRef = useRef();
   const history = useHistory();
+  const [firstLogin,setFirstLogin]=useState(false);
 
   useEffect(() => {
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBAWtmrqXqGmJoN6ryiPw-uTZdAxw7fDxo",
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyA0pqJSQ-yEZoPYGgevk5n-EitxkfOOIdg",
       {
         method: "POST",
         body: JSON.stringify({
@@ -33,8 +34,10 @@ const ProfilePage = () => {
       .then((data) => {
         console.log(data.users);
         if (data.users[0].displayName === undefined) {
+          setFirstLogin(true);
           nameRef.current.value = "";
           imgUrlRef.current.value = "";
+          
         } else {
           nameRef.current.value = data.users[0].displayName;
           imgUrlRef.current.value = data.users[0].photoUrl || "";
@@ -58,7 +61,7 @@ const ProfilePage = () => {
 
     try {
       const response = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBAWtmrqXqGmJoN6ryiPw-uTZdAxw7fDxo",
+        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyA0pqJSQ-yEZoPYGgevk5n-EitxkfOOIdg",
         {
           method: "POST",
           body: JSON.stringify({
@@ -87,9 +90,9 @@ const ProfilePage = () => {
 
   return (
     <Row className="justify-content-md-center m-5">
-      <h5 className="text-center mb-4 text-secondary">
+      {firstLogin && <h5 className="text-center mb-4 text-secondary">
         Please fill your details before moving on
-      </h5>
+      </h5>}
       <Col xs={12} sm={8} md={6} lg={5} className="border border-3 rounded shadow-sm p-4 bg-light">
         <Form onSubmit={formSubmitFunction}>
           <h1 className="fs-4 mb-4 text-primary">Customer Details</h1>

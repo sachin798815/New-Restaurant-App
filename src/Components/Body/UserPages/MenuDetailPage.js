@@ -10,7 +10,7 @@ const MenuDetailPage = () => {
 
   useEffect(() => {
     fetch(
-      "https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/recipes.json",
+      "https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com//admin/recipes.json",
       {
         method: "GET",
         headers: {
@@ -37,7 +37,7 @@ const MenuDetailPage = () => {
 
   const addToCartHandler = (item) => {
     fetch(
-      `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/orders/${userName}.json`,
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/orders/${userName}.json`,
       {
         method: "POST",
         headers: {

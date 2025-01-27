@@ -7,12 +7,9 @@ const OrdersPage = () => {
   const userName = localStorage.getItem("name");
   const isAdmin = useAdminCheck();
 
-  if (!isAdmin) {
-    return <h1>Access Denied</h1>;
-  }
   useEffect(() => {
     fetch(
-      `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/accepted.json`,
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/accepted.json`,
       {
         method: "GET",
         headers: {
@@ -33,10 +30,14 @@ const OrdersPage = () => {
             })
             .flat();
 
-          const sortedDataList = dataList.sort((a, b) => 
-            a.orderStatus === 'pending' ? -1 : (b.orderStatus === 'pending' ? 1 : 0)
+          const sortedDataList = dataList.sort((a, b) =>
+            a.orderStatus === "pending"
+              ? -1
+              : b.orderStatus === "pending"
+              ? 1
+              : 0
           );
-          
+
           setDataList(sortedDataList);
         }
       })
@@ -45,7 +46,7 @@ const OrdersPage = () => {
 
   const deliveredHandler = (order) => {
     fetch(
-      `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/accepted/${order.userName}/${order.id}.json`,
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/accepted/${order.userName}/${order.id}.json`,
       {
         method: "PUT",
         headers: {
@@ -69,11 +70,17 @@ const OrdersPage = () => {
       })
       .catch((error) => console.error(error));
   };
-
+  
+  if (!isAdmin) {
+    return <h1>Access Denied</h1>;
+  }
   return (
     <Container className="mt-5">
       {dataList.map((data, index) => (
-        <Row key={index} className="mb-4 border-5 shadow p-3 mb-5 bg-white rounded">
+        <Row
+          key={index}
+          className="mb-4 border-5 shadow p-3 mb-5 bg-white rounded"
+        >
           <Col>
             <Card>
               <Card.Body>

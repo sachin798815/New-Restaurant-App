@@ -7,7 +7,7 @@ const OrderStatusPage = () => {
 
   useEffect(() => {
     fetch(
-      `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/accepted/${userName}.json`,
+      `https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com/accepted/${userName}.json`,
       {
         method: "GET",
         headers: {
@@ -22,7 +22,7 @@ const OrderStatusPage = () => {
             ...data[key],
             id: key,
           }));
-          // Reverse the order of items here if necessary
+          // Reverse the order of items, for lastest at top
           setDataList(dataList.reverse());
         }
       })

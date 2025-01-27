@@ -1,6 +1,5 @@
-// useAdminCheck.js
 import { useEffect, useState } from "react";
-import { db, auth } from "./firebase";
+import { db, auth } from "../firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 
 const useAdminCheck = () => {

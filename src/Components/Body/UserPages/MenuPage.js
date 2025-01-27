@@ -9,7 +9,7 @@ const MenuPage = () => {
 
   useEffect(() => {
     fetch(
-      "https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/categories.json",
+      "https://new-restaurant-app-8f44a-default-rtdb.firebaseio.com//admin/categories.json",
       {
         method: "GET",
         headers: {

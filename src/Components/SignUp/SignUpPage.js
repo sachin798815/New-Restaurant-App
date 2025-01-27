@@ -3,10 +3,12 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { authActions } from "../../Store/AuthStore";
+import useAdminCheck from "../useAdminCheck";
 
 const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLogin, setIsLogin] = useState(true);
+  const isAdmin=useAdminCheck();
 
   const dispatch = useDispatch();
 
@@ -37,10 +39,10 @@ const SignUpPage = () => {
     let url;
     if (isLogin) {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBAWtmrqXqGmJoN6ryiPw-uTZdAxw7fDxo";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA0pqJSQ-yEZoPYGgevk5n-EitxkfOOIdg";
     } else {
       url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBAWtmrqXqGmJoN6ryiPw-uTZdAxw7fDxo";
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA0pqJSQ-yEZoPYGgevk5n-EitxkfOOIdg";
     }
 
     try {
@@ -65,8 +67,7 @@ const SignUpPage = () => {
 
       const emailString = emailRef.current.value.split('@')[0];
       dispatch(authActions.login({ token: data.idToken, email: emailString, localId: data.localId }));
-      if(data.localId==="9Z8RB4BMUyPTVlXbyrCIJcUmMHG3"){
-        localStorage.setItem("isAdmin",true);
+      if(isAdmin){
         history.replace("/categories")
       }else{
         history.replace("/home");

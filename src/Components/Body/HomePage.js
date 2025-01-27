@@ -9,7 +9,7 @@ const HomePage = () => {
 
   useEffect(() => {
     fetch(
-      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyBAWtmrqXqGmJoN6ryiPw-uTZdAxw7fDxo",
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyA0pqJSQ-yEZoPYGgevk5n-EitxkfOOIdg",
       {
         method: "POST",
         body: JSON.stringify({

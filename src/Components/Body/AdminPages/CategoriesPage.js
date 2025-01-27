@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import "./CategoriesPage.css";
+import useAdminCheck from "../../useAdminCheck";
 
 const CategoriesPage = () => {
   const categoryRef = useRef();
   const urlRef = useRef();
   const [categories, setCategories] = useState([]);
+  const isAdmin = useAdminCheck();
+
+  if (!isAdmin) {
+    return <h1>Access Denied</h1>;
+  }
   useEffect(() => {
     fetch(
       "https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/admin/categories.json",

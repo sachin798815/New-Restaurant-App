@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import "./RecipesPage.css";
+import useAdminCheck from "../../useAdminCheck";
 
 const RecipesPage = () => {
   const [categories, setCategories] = useState([]);
@@ -10,6 +11,11 @@ const RecipesPage = () => {
   const ingredientsRef = useRef();
   const priceRef = useRef();
   const urlRef = useRef();
+  const isAdmin = useAdminCheck();
+
+  if (!isAdmin) {
+    return <h1>Access Denied</h1>;
+  }
 
   useEffect(() => {
     fetch(

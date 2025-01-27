@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import useAdminCheck from "../../useAdminCheck";
 
 const OrdersPage = () => {
   const [dataList, setDataList] = useState([]);
   const userName = localStorage.getItem("name");
+  const isAdmin = useAdminCheck();
 
+  if (!isAdmin) {
+    return <h1>Access Denied</h1>;
+  }
   useEffect(() => {
     fetch(
       `https://restaurant-delivery-app-5c344-default-rtdb.firebaseio.com/accepted.json`,

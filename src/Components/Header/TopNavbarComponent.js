@@ -6,9 +6,10 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import CartComponent from "./CartComponent";
 import { useState } from "react";
 import "./TopNavbarComponent.css";
+import useAdminCheck from "../useAdminCheck";
 
 const TopNavbarComponent = () => {
-  const isAdmin = localStorage.getItem("isAdmin");
+  const isAdmin=useAdminCheck();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [showCart, setShowCart] = useState(false);
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const TopNavbarComponent = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="d-flex justify-content-center flex-grow-1">
+            {/* User Links*/}
             {!isAdmin && isAuthenticated && (
               <Nav.Item className="me-3">
                 <NavLink
@@ -54,30 +56,6 @@ const TopNavbarComponent = () => {
                   }
                 >
                   MENU
-                </NavLink>
-              </Nav.Item>
-            )}
-            {isAdmin && isAuthenticated && (
-              <Nav.Item className="me-3">
-                <NavLink
-                  to="/categories"
-                  className={({ isActive }) =>
-                    isActive ? "nav-link active" : "nav-link"
-                  }
-                >
-                  CATEGORIES
-                </NavLink>
-              </Nav.Item>
-            )}
-            {isAdmin && isAuthenticated && (
-              <Nav.Item className="me-3">
-                <NavLink
-                  to="/recipes"
-                  className={({ isActive }) =>
-                    isActive ? "nav-link active" : "nav-link"
-                  }
-                >
-                  RECIPES
                 </NavLink>
               </Nav.Item>
             )}
@@ -105,6 +83,33 @@ const TopNavbarComponent = () => {
                 </NavLink>
               </Nav.Item>
             )}
+
+            {/*Admin Links*/}
+            {isAdmin && isAuthenticated && (
+              <Nav.Item className="me-3">
+                <NavLink
+                  to="/categories"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  CATEGORIES
+                </NavLink>
+              </Nav.Item>
+            )}
+            {isAdmin && isAuthenticated && (
+              <Nav.Item className="me-3">
+                <NavLink
+                  to="/recipes"
+                  className={({ isActive }) =>
+                    isActive ? "nav-link active" : "nav-link"
+                  }
+                >
+                  RECIPES
+                </NavLink>
+              </Nav.Item>
+            )}
+            
             {isAdmin && isAuthenticated && (
               <Nav.Item className="me-3">
                 <NavLink

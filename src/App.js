@@ -2,7 +2,7 @@ import "./App.css";
 import SignUpPage from "./Components/SignUp/SignUpPage";
 import TopNavbarComponent from "./Components/Header/TopNavbarComponent";
 import HomePage from "./Components/Body/HomePage";
-import { Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector } from "react-redux";
 import CategoriesPage from "./Components/Body/AdminPages/CategoriesPage";
@@ -14,9 +14,13 @@ import MenuPage from "./Components/Body/UserPages/MenuPage";
 import MenuDetailPage from "./Components/Body/UserPages/MenuDetailPage";
 import CheckoutPage from "./Components/Body/UserPages/CheckoutPage";
 import OrderStatusPage from "./Components/Body/UserPages/OrderStatusPage";
+import useAdminCheck from "./Components/useAdminCheck";
+import ProtectedRoute from "./Components/ProtectedRoute,js";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAdmin = useAdminCheck();
+
   return (
     <Container fluid className="h-100 w-100 p-0">
       {/* Navbar */}
@@ -24,45 +28,48 @@ function App() {
 
       {/* Main Content */}
       <Switch>
-        {!isAuthenticated && (
-          <Route path="/" exact>
-            <SignUpPage />
-          </Route>
-        )}
-        {isAuthenticated && (
-          <Route path="/" exact>
-            <SignUpPage/>
-          </Route>
-        )}
+        <Route path="/" exact>
+          <SignUpPage />
+        </Route>
+        <Route path="/password">
+          <ForgotPasswordPage />
+        </Route>
+
+        {/*Admin Pages*/}
+        <Route path="/categories">
+          <ProtectedRoute>
+            <CategoriesPage />
+          </ProtectedRoute>
+        </Route>
+        <Route path="/recipes">
+          <ProtectedRoute>
+            <RecipesPage />
+          </ProtectedRoute>
+        </Route>
+        <Route path="/orders">
+          <ProtectedRoute>
+            <OrdersPage />
+          </ProtectedRoute>
+        </Route>
+
+        {/*User Pages*/}
         <Route path="/home">
           <HomePage />
         </Route>
-        <Route path="/categories">
-          <CategoriesPage/>
-        </Route>
-        <Route path="/recipes">
-          <RecipesPage/>
-        </Route>
-        <Route path="/orders">
-          <OrdersPage/>
-        </Route>
         <Route path="/profile">
-          <ProfilePage/>
-        </Route>
-        <Route path="/password">
-          <ForgotPasswordPage/>
+          <ProfilePage />
         </Route>
         <Route path="/menu" exact>
-          <MenuPage/>
+          <MenuPage />
         </Route>
         <Route path="/menu/:category">
-        <MenuDetailPage/>
+          <MenuDetailPage />
         </Route>
         <Route path="/checkout">
-        <CheckoutPage/>
+          <CheckoutPage />
         </Route>
         <Route path="/orderstatus">
-        <OrderStatusPage/>
+          <OrderStatusPage />
         </Route>
       </Switch>
     </Container>

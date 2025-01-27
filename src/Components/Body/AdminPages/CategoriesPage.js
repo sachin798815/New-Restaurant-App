@@ -7,7 +7,7 @@ const CategoriesPage = () => {
   const categoryRef = useRef();
   const urlRef = useRef();
   const [categories, setCategories] = useState([]);
-  const isAdmin = useAdminCheck();
+  const {isAdmin} = useAdminCheck();
 
   useEffect(() => {
     fetch(

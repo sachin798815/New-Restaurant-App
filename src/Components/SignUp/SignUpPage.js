@@ -3,15 +3,17 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { authActions } from "../../Store/AuthStore";
-import useAdminCheck from "../useAdminCheck";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../../firebase/firebase";
 
 const SignUpPage = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLogin, setIsLogin] = useState(true);
-  const isAdmin=useAdminCheck();
 
   const dispatch = useDispatch();
-
   const history = useHistory();
 
   const emailRef = useRef();
@@ -36,46 +38,43 @@ const SignUpPage = () => {
       setErrorMessage("Passwords do not match!");
       return;
     }
-    let url;
-    if (isLogin) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA0pqJSQ-yEZoPYGgevk5n-EitxkfOOIdg";
-    } else {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA0pqJSQ-yEZoPYGgevk5n-EitxkfOOIdg";
-    }
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: JSON.stringify({
-          email: enteredEmail,
-          password: enteredPassword,
-          returnSecureToken: true,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to sign up!");
+      let userCredential;
+      if (isLogin) {
+        // Login with firebase authentication
+        userCredential = await signInWithEmailAndPassword(
+          auth,
+          enteredEmail,
+          enteredPassword
+        );
+      } else {
+        // Sign up with firebase authentication
+        userCredential = await createUserWithEmailAndPassword(
+          auth,
+          enteredEmail,
+          enteredPassword
+        );
       }
 
-      const data = await response.json();
-      console.log(data);
+      const user = userCredential.user;
+      console.log("Logged in user:", user);
 
-      const emailString = emailRef.current.value.split('@')[0];
-      dispatch(authActions.login({ token: data.idToken, email: emailString, localId: data.localId }));
-      if(isAdmin){
-        history.replace("/categories")
-      }else{
-        history.replace("/home");
-      }
-      
+      const emailString = enteredEmail.split("@")[0];
+      dispatch(
+        authActions.login({
+          token: user.stsTokenManager.accessToken,
+          email: emailString,
+          localId: user.uid,
+        })
+      );
 
       setErrorMessage(null);
+
+      history.replace("/home");
+
     } catch (error) {
+      console.error("Authentication error:", error.message);
       setErrorMessage(error.message);
     }
   };

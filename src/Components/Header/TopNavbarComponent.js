@@ -2,27 +2,40 @@ import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { authActions } from "../../Store/AuthStore";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 import CartComponent from "./CartComponent";
 import { useState } from "react";
 import "./TopNavbarComponent.css";
 import useAdminCheck from "../useAdminCheck";
+import { auth } from "../../firebase/firebase";
 
 const TopNavbarComponent = () => {
-  const isAdmin=useAdminCheck();
+  const { isAdmin, loading } = useAdminCheck();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const [showCart, setShowCart] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
+  
+  const logoutHandler = async () => {
+    try {
+      // Log out from Firebase
+      await auth.signOut();
 
-  const logoutHandler = () => {
-    dispatch(authActions.logout());
-    history.replace("/");
+      dispatch(authActions.logout());
+      history.replace("/");
+
+    } catch (error) {
+      console.error("Error logging out from Firebase:", error.message);
+    }
   };
 
   const showCartHandler = () => {
     setShowCart((prev) => !prev);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Navbar expand="lg" className="bg-warning h-auto sticky-top text-center">
@@ -34,7 +47,7 @@ const TopNavbarComponent = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="d-flex justify-content-center flex-grow-1">
-            {/* User Links*/}
+            {/* User Links */}
             {!isAdmin && isAuthenticated && (
               <Nav.Item className="me-3">
                 <NavLink
@@ -84,7 +97,7 @@ const TopNavbarComponent = () => {
               </Nav.Item>
             )}
 
-            {/*Admin Links*/}
+            {/* Admin Links */}
             {isAdmin && isAuthenticated && (
               <Nav.Item className="me-3">
                 <NavLink
@@ -109,7 +122,7 @@ const TopNavbarComponent = () => {
                 </NavLink>
               </Nav.Item>
             )}
-            
+
             {isAdmin && isAuthenticated && (
               <Nav.Item className="me-3">
                 <NavLink
@@ -123,11 +136,13 @@ const TopNavbarComponent = () => {
               </Nav.Item>
             )}
           </Nav>
+
           {!isAdmin && isAuthenticated && (
             <Button className="me-1" onClick={showCartHandler}>
               CART
             </Button>
           )}
+
           {!isAdmin && isAuthenticated && (
             <Link to="/profile">
               <img
@@ -138,6 +153,7 @@ const TopNavbarComponent = () => {
               />
             </Link>
           )}
+
           {isAuthenticated && (
             <Button
               onClick={logoutHandler}
@@ -147,6 +163,7 @@ const TopNavbarComponent = () => {
               Logout
             </Button>
           )}
+
           {showCart && (
             <CartComponent onShow={showCartHandler} showCart={showCart} />
           )}

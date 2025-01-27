@@ -32,7 +32,7 @@ const ProfilePage = () => {
         }
       })
       .then((data) => {
-        console.log(data.users);
+        // console.log(data.users);
         if (data.users[0].displayName === undefined) {
           setFirstLogin(true);
           nameRef.current.value = "";

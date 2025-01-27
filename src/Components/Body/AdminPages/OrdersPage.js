@@ -5,7 +5,7 @@ import useAdminCheck from "../../useAdminCheck";
 const OrdersPage = () => {
   const [dataList, setDataList] = useState([]);
   const userName = localStorage.getItem("name");
-  const isAdmin = useAdminCheck();
+  const {isAdmin} = useAdminCheck();
 
   useEffect(() => {
     fetch(

@@ -11,7 +11,7 @@ const RecipesPage = () => {
   const ingredientsRef = useRef();
   const priceRef = useRef();
   const urlRef = useRef();
-  const isAdmin = useAdminCheck();
+  const {isAdmin} = useAdminCheck();
 
   useEffect(() => {
     fetch(

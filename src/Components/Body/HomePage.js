@@ -3,11 +3,16 @@ import BhojanamImage from "../Images/Bhojanam.jpg";
 import { Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import styles from "./HomePage.module.css";
+import useAdminCheck from "../useAdminCheck";
 
 const HomePage = () => {
   const history = useHistory();
+  const {isAdmin}=useAdminCheck();
 
   useEffect(() => {
+    if(isAdmin){
+      history.replace("/categories");
+    }
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyA0pqJSQ-yEZoPYGgevk5n-EitxkfOOIdg",
       {
@@ -31,14 +36,14 @@ const HomePage = () => {
         }
       })
       .then((data) => {
-        console.log(data.users);
+        // console.log(data.users);
         if (data.users[0].displayName === undefined) {
           history.push("/profile");
         } else {
           localStorage.setItem("name", data.users[0].displayName);
         }
       });
-  }, [history]);
+  }, [history,isAdmin]);
 
   return (
     <Container className={styles.container}>

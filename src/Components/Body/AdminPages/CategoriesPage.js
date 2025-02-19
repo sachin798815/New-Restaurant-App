@@ -78,7 +78,7 @@ const CategoriesPage = () => {
     setCategories(newCategories);
   };
   if (!isAdmin) {
-    return <h1>Access Denied</h1>;
+    return <h1>Loading...</h1>;
   }
   return (
     <Container className="shadow p-3 mb-5 bg-white rounded">

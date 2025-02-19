@@ -72,7 +72,7 @@ const OrdersPage = () => {
   };
   
   if (!isAdmin) {
-    return <h1>Access Denied</h1>;
+    return <h1>Loading...</h1>;
   }
   return (
     <Container className="mt-5">
@@ -98,11 +98,11 @@ const OrdersPage = () => {
                     variant="success"
                     onClick={() => deliveredHandler(data)}
                   >
-                    Delivered
+                    Set to Delivered
                   </Button>
                 ) : (
                   <Button variant="danger" disabled>
-                    Confirm Delivered
+                    Delivered
                   </Button>
                 )}
               </Card.Body>

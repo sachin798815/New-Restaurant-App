@@ -131,7 +131,7 @@ const RecipesPage = () => {
   };
 
   if (!isAdmin) {
-    return <h1>Access Denied</h1>;
+    return <h1>Loading...</h1>;
   }
 
   return (

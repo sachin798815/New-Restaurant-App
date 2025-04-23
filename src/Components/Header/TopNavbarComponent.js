@@ -8,6 +8,7 @@ import { useState } from "react";
 import "./TopNavbarComponent.css";
 import useAdminCheck from "../useAdminCheck";
 import { auth } from "../../firebase/firebase";
+import LoadingPage from "../Body/LoadingPage";
 
 const TopNavbarComponent = () => {
   const { isAdmin, loading } = useAdminCheck();
@@ -34,7 +35,7 @@ const TopNavbarComponent = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingPage/>;
   }
 
   return (

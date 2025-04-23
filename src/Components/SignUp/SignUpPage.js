@@ -26,13 +26,9 @@ const SignUpPage = () => {
 
   const onSubmitFunction = async (e) => {
     e.preventDefault();
-    const enteredEmail = emailRef.current ? emailRef.current.value : "";
-    const enteredPassword = passwordRef.current
-      ? passwordRef.current.value
-      : "";
-    const confirmPassword = confirmPasswordRef.current
-      ? confirmPasswordRef.current.value
-      : "";
+    const enteredEmail = emailRef.current?.value || "";
+    const enteredPassword = passwordRef.current?.value || "";
+    const confirmPassword = confirmPasswordRef.current?.value || "";
 
     if (!isLogin && enteredPassword !== confirmPassword) {
       setErrorMessage("Passwords do not match!");
@@ -42,14 +38,12 @@ const SignUpPage = () => {
     try {
       let userCredential;
       if (isLogin) {
-        // Login with firebase authentication
         userCredential = await signInWithEmailAndPassword(
           auth,
           enteredEmail,
           enteredPassword
         );
       } else {
-        // Sign up with firebase authentication
         userCredential = await createUserWithEmailAndPassword(
           auth,
           enteredEmail,
@@ -70,9 +64,7 @@ const SignUpPage = () => {
       );
 
       setErrorMessage(null);
-
       history.replace("/home");
-
     } catch (error) {
       console.error("Authentication error:", error.message);
       setErrorMessage(error.message);
@@ -81,10 +73,10 @@ const SignUpPage = () => {
 
   return (
     <Container className="mt-5">
-      <Row className="justify-content-md-center">
-        <Col xs={4} className="border border-3 rounded text-center">
-          <Form onSubmit={onSubmitFunction} autoComplete="on">
-            <div className="fw-bold fs-2 my-3">
+      <Row className="justify-content-center">
+        <Col xs={12} sm={10} md={8} lg={6} xl={5} className="p-4 border border-3 rounded mx-1">
+          <Form onSubmit={onSubmitFunction} autoComplete="on" className="text-center">
+            <div className="fw-bold fs-2 mb-3">
               {isLogin ? "Login" : "Sign Up"}
             </div>
             {errorMessage && (
@@ -99,14 +91,14 @@ const SignUpPage = () => {
               className="mb-3"
               required
               autoComplete="on"
-            ></Form.Control>
+            />
             <Form.Control
               type="password"
               placeholder="Password"
               ref={passwordRef}
               className="mb-3"
               required
-            ></Form.Control>
+            />
             {!isLogin && (
               <Form.Control
                 type="password"
@@ -114,33 +106,29 @@ const SignUpPage = () => {
                 ref={confirmPasswordRef}
                 className="mb-3"
                 required
-              ></Form.Control>
+              />
             )}
             {isLogin && (
-              <Form.Group>
-                <Button variant="light">
-                  <Link to="/password">forgot password?</Link>
-                </Button>
+              <Form.Group className="mb-2 text-center">
+                <Link to="/password" className="text-decoration-none">
+                  Forgot password?
+                </Link>
               </Form.Group>
             )}
-            <Button type="submit" className="my-4 border rounded-pill px-5">
+            <Button type="submit" className="my-3 w-100 rounded-pill">
               {isLogin ? "Login" : "Sign Up"}
             </Button>
           </Form>
+          <Button
+            variant="light"
+            onClick={loginToggleFunction}
+            className="w-100 mt-3"
+          >
+            {isLogin
+              ? "Don't Have an account? Sign Up here"
+              : "Have an account? Sign In here"}
+          </Button>
         </Col>
-        <Row className="justify-content-md-center mt-3">
-          <Col xs={4} className="text-center">
-            <Button
-              variant="light"
-              onClick={loginToggleFunction}
-              className="w-100"
-            >
-              {isLogin
-                ? "Don't Have an account? Sign Up here"
-                : "Have an account? Sign In here"}
-            </Button>
-          </Col>
-        </Row>
       </Row>
     </Container>
   );

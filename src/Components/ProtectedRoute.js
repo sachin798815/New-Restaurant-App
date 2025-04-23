@@ -5,19 +5,19 @@ import { onAuthStateChanged } from "firebase/auth";
 
 const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Add a loading state to prevent flashing
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false); // Set loading to false once the auth state is resolved
+      setLoading(false);
     });
 
     return () => unsubscribe(); // Cleanup the listener
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>; // Optional loading UI
+    return <h1>Loading...</h1>;
   }
 
   return user ? children : <Redirect to="/" />;

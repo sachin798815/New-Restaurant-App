@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import styles from "./CartComponent.module.css";
 
 const CartComponent = (props) => {
   const [orderList, setOrderList] = useState([]);
@@ -19,7 +20,6 @@ const CartComponent = (props) => {
       .then((response) => response.json())
       .then((data) => {
         if (data) {
-          console.log(data)
           const itemList = Object.keys(data).map((key) => ({
             ...data[key],
             id: key,
@@ -40,23 +40,27 @@ const CartComponent = (props) => {
     const newOrderList = orderList.filter((item) => item.id !== id);
     setOrderList(newOrderList);
   };
+
   return (
-    <Modal show={props.showCart} onHide={props.onShow} size="md">
+    <Modal show={props.showCart} onHide={props.onShow} size="md" className={styles.modalResponsive}>
       <Modal.Header closeButton>
         <Modal.Title>Cart</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className={styles.modalBody}>
         {orderList.map((order) => (
-          <Row key={order.id} className="m-3">
-            <Col>{order.recipe} </Col>
-            <Col>Rs {order.price}</Col>
-            <Col>
+          <Row key={order.id} className={`${styles.orderRow}`}>
+            <Col xs={12} sm={4} className={styles.colItem}>
+              {order.recipe}
+            </Col>
+            <Col xs={6} sm={4} className={styles.colItem}>
+              Rs {order.price}
+            </Col>
+            <Col xs={12} sm={4} className={`${styles.colItem} text-end`}>
+
               <Button
                 variant="danger"
-                onClick={() => {
-                  removeHandler(order.id);
-                }}
-                className="ms-3"
+                onClick={() => removeHandler(order.id)}
+                size="sm"
               >
                 Remove
               </Button>
@@ -65,8 +69,8 @@ const CartComponent = (props) => {
         ))}
       </Modal.Body>
       <Modal.Footer>
-        <Link to="/checkout">
-          <Button variant="primary" onClick={props.onShow}>
+        <Link to="/checkout" className="w-100 text-center">
+          <Button variant="primary" onClick={props.onShow} className="w-100">
             CHECKOUT
           </Button>
         </Link>
@@ -74,4 +78,5 @@ const CartComponent = (props) => {
     </Modal>
   );
 };
+
 export default CartComponent;

@@ -1,0 +1,46 @@
+.modalResponsive {
+    padding: 1rem;
+  }
+  
+  .modalBody {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  
+  .orderRow {
+    margin-bottom: 1rem;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+  }
+  
+  .colItem {
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  @media (max-width: 576px) {
+    .modalResponsive {
+      padding: 0.5rem;
+      margin: 0;
+    }
+  
+    .orderRow {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .colItem {
+      width: 100%;
+      margin-bottom: 0.75rem;
+      justify-content: center;
+    }
+  
+    .text-end {
+      text-align: center !important;
+    }
+  }
+  

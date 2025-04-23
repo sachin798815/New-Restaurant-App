@@ -1,0 +1,13 @@
+.statusText {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  .pending {
+    color: #e6b800; /* yellowish */
+  }
+  
+  .successful {
+    color: #28a745; /* greenish */
+  }
+  

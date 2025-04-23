@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import styles from "./OrderStatusPage.module.css";
 
 const OrderStatusPage = () => {
   const [dataList, setDataList] = useState([]);
@@ -44,7 +45,17 @@ const OrderStatusPage = () => {
                   ))}
                 </ul>
                 <Card.Text>Total Amount: ₹{data.totalAmount}</Card.Text>
-                <Card.Text>Status: {data.orderStatus}</Card.Text>
+                <Card.Text
+                  className={`${styles.statusText} ${
+                    data.orderStatus === "pending"
+                      ? styles.pending
+                      : data.orderStatus === "delivered"
+                      ? styles.successful
+                      : ""
+                  }`}
+                >
+                  Status: {data.orderStatus}
+                </Card.Text>
               </Card.Body>
             </Card>
           </Col>

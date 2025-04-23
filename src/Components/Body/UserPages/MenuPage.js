@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Carousel, Container } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import "./MenuPage.css";
+import styles from "./MenuPage.module.css";
 
 const MenuPage = () => {
   const [categories, setCategories] = useState([]);
@@ -24,7 +24,6 @@ const MenuPage = () => {
             id: key,
             ...data[key],
           }));
-          // Filter distinct categories
           const distinctCategories = itemList.filter(
             (item, index, self) =>
               index === self.findIndex((t) => t.category === item.category)
@@ -34,27 +33,44 @@ const MenuPage = () => {
         }
       })
       .catch((error) => console.error(error));
-
   }, []);
 
   return (
     <>
-      <h1 className="text-center m-5">Menu</h1>
+    <br/>
+      <h1 className={`${styles.heading} ${styles.textCenter}`}>Menu</h1>
       {distinctCategories.map((currentDistinctCategory) => (
-        <Container key={currentDistinctCategory.id} className="border rounded mb-5 p-1">
-          <h2 className="text-center">{currentDistinctCategory.category} List</h2>
-          <Carousel className="bg-info">
+        <Container
+          key={currentDistinctCategory.id}
+          className={styles.borderBox}
+        >
+          <h2 className={`${styles.subheading} ${styles.textCenter}`}>
+            {currentDistinctCategory.category} List
+          </h2>
+          <Carousel className={styles.carouselContainer}>
             {categories
               .filter(
                 (currentCategory) =>
                   currentCategory.category === currentDistinctCategory.category
               )
               .map((filteredCategory) => (
-                  <Carousel.Item key={filteredCategory.id} className="text-center">
-                    <Link to={`/menu/${filteredCategory.category}`}  className="text-decoration-none text-dark">
-                    <Carousel.Caption>click to open</Carousel.Caption>
-                    <img src={filteredCategory.imageUrl} alt={filteredCategory.category} />
-                    </Link>
+                <Carousel.Item
+                  key={filteredCategory.id}
+                  className={styles.carouselItem}
+                >
+                  <Link
+                    to={`/menu/${filteredCategory.category}`}
+                    className={styles.link}
+                  >
+                    <Carousel.Caption className={styles.carouselCaption}>
+                      click to open
+                    </Carousel.Caption>
+                    <img
+                      src={filteredCategory.imageUrl}
+                      alt={filteredCategory.category}
+                      className={styles.carouselImage}
+                    />
+                  </Link>
                 </Carousel.Item>
               ))}
           </Carousel>

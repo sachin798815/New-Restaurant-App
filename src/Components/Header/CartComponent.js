@@ -5,7 +5,7 @@ import styles from "./CartComponent.module.css";
 
 const CartComponent = (props) => {
   const [orderList, setOrderList] = useState([]);
-  const userName = localStorage.getItem("name");
+  const userName = sessionStorage.getItem("name");
 
   useEffect(() => {
     fetch(

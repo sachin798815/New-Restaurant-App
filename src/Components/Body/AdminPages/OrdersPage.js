@@ -5,7 +5,7 @@ import LoadingPage from "../LoadingPage";
 
 const OrdersPage = () => {
   const [dataList, setDataList] = useState([]);
-  const userName = localStorage.getItem("name");
+  const userName = sessionStorage.getItem("name");
   const {isAdmin} = useAdminCheck();
 
   useEffect(() => {

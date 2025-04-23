@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const CheckoutPage = () => {
   const [orderList, setOrderList] = useState([]);
-  const userName = localStorage.getItem("name");
+  const userName = sessionStorage.getItem("name");
   const [totalAmount, setTotalAmount] = useState(0);
   const history=useHistory();
 

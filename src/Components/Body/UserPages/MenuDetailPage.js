@@ -6,7 +6,7 @@ import styles from "./MenuDetailPage.module.css";
 const MenuDetailPage = () => {
   const { category } = useParams();
   const [recipes, setRecipes] = useState([]);
-  const userName = localStorage.getItem("name");
+  const userName = sessionStorage.getItem("name");
 
   useEffect(() => {
     fetch(

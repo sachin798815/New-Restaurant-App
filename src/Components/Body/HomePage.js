@@ -18,7 +18,7 @@ const HomePage = () => {
       {
         method: "POST",
         body: JSON.stringify({
-          idToken: localStorage.getItem("token"),
+          idToken: sessionStorage.getItem("token"),
         }),
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const HomePage = () => {
         if (data.users[0].displayName === undefined) {
           history.push("/profile");
         } else {
-          localStorage.setItem("name", data.users[0].displayName);
+          sessionStorage.setItem("name", data.users[0].displayName);
         }
       });
   }, [history,isAdmin]);

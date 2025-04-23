@@ -4,7 +4,7 @@ import styles from "./OrderStatusPage.module.css";
 
 const OrderStatusPage = () => {
   const [dataList, setDataList] = useState([]);
-  const userName = localStorage.getItem("name");
+  const userName = sessionStorage.getItem("name");
 
   useEffect(() => {
     fetch(

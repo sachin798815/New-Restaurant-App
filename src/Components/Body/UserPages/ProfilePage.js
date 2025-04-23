@@ -14,7 +14,7 @@ const ProfilePage = () => {
       {
         method: "POST",
         body: JSON.stringify({
-          idToken: localStorage.getItem("token"),
+          idToken: sessionStorage.getItem("token"),
         }),
         headers: {
           "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const ProfilePage = () => {
         } else {
           nameRef.current.value = data.users[0].displayName;
           imgUrlRef.current.value = data.users[0].photoUrl || "";
-          localStorage.setItem("name", data.users[0].displayName);
+          sessionStorage.setItem("name", data.users[0].displayName);
         }
       })
       .catch((err) => console.error(err));
@@ -57,7 +57,7 @@ const ProfilePage = () => {
       return;
     }
 
-    localStorage.setItem("name", nameInput);
+    sessionStorage.setItem("name", nameInput);
 
     try {
       const response = await fetch(
@@ -65,7 +65,7 @@ const ProfilePage = () => {
         {
           method: "POST",
           body: JSON.stringify({
-            idToken: localStorage.getItem("token"),
+            idToken: sessionStorage.getItem("token"),
             displayName: nameInput,
             photoUrl: imgUrlInput,
             returnSecureToken: true,

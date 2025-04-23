@@ -1,0 +1,53 @@
+.card {
+  min-height: 450px;
+  max-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.cardImage {
+  height: 150px;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.ingredients {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 60px;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  padding-right: 6px;
+}
+
+.cardBtn {
+  width: 100px;
+  margin: 0.25rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

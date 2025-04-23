@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import useAdminCheck from "../../useAdminCheck";
+import styles from "./CategoriesPage.module.css";
+import LoadingPage from "../LoadingPage";
 
 const CategoriesPage = () => {
   const categoryRef = useRef();
@@ -59,7 +61,7 @@ const CategoriesPage = () => {
     deleteHandler(item.id);
   };
 
-  if (!isAdmin) return <h1>Loading...</h1>;
+  if (!isAdmin) return <LoadingPage/>;
 
   return (
     <Container className="p-3">
@@ -81,27 +83,33 @@ const CategoriesPage = () => {
           </Form>
         </Card.Body>
       </Card>
-      <br/>
+      <br />
       <Row className="text-center mt-5 mb-3">
         <h2>Browse Added Categories</h2>
       </Row>
       <Row className="g-4">
         {categories.map((item) => (
           <Col key={item.id} xs={12} sm={6} md={4} lg={3}>
-            <Card className="h-100 text-center shadow-sm border-0">
+            <Card
+              className={`h-100 text-center shadow border ${styles.card}`}
+            >
               <Card.Body className="d-flex flex-column justify-content-between">
-                <Card.Title className="text-truncate">{item.category}</Card.Title>
+                <Card.Title className={styles.cardTitle}>
+                  {item.category}
+                </Card.Title>
                 <Card.Img
                   src={item.imageUrl}
                   alt={item.category}
-                  className="my-3"
-                  style={{ height: "150px", objectFit: "cover", borderRadius: "10px" }}
+                  className={styles.cardImage}
                 />
                 <div className="d-grid gap-2">
                   <Button variant="primary" onClick={() => editHandler(item)}>
                     EDIT
                   </Button>
-                  <Button variant="danger" onClick={() => deleteHandler(item.id)}>
+                  <Button
+                    variant="danger"
+                    onClick={() => deleteHandler(item.id)}
+                  >
                     DELETE
                   </Button>
                 </div>

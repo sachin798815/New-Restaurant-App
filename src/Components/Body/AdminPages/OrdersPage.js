@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import useAdminCheck from "../../useAdminCheck";
+import LoadingPage from "../LoadingPage";
 
 const OrdersPage = () => {
   const [dataList, setDataList] = useState([]);
@@ -72,7 +73,7 @@ const OrdersPage = () => {
   };
   
   if (!isAdmin) {
-    return <h1>Loading...</h1>;
+    return <LoadingPage/>;
   }
   return (
     <Container className="mt-5">

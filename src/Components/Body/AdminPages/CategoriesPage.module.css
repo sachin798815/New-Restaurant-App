@@ -1,0 +1,25 @@
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.cardImage {
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 0.75rem 0;
+}
+
+.cardTitle {
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
